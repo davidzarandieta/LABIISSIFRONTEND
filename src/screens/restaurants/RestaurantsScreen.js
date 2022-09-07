@@ -31,11 +31,17 @@ export default function RestaurantsScreen ({ navigation, route }) {
     if (loggedInUser) {
       fetchRestaurants()
     } else {
-      setRestaurants(null)
+      setRestaurants(null) 
     }
   }, [loggedInUser, route])
 
+  
+
   const renderRestaurant = ({ item }) => {
+    let promocional = ''
+    if (item.promocional===true){
+      promocional = 'PROMO!!!'
+    }
     return (
       <ImageCard
         imageUri={item.logo ? { uri: process.env.API_BASE_URL + '/' + item.logo } : undefined}
@@ -44,11 +50,13 @@ export default function RestaurantsScreen ({ navigation, route }) {
           navigation.navigate('RestaurantDetailScreen', { id: item.id })
         }}
       >
+         <TextSemiBold textStyle={styles.promo}>{promocional} </TextSemiBold>
         <TextRegular numberOfLines={2}>{item.description}</TextRegular>
         {item.averageServiceMinutes !== null &&
           <TextSemiBold>Avg. service time: <TextSemiBold textStyle={{ color: brandPrimary }}>{item.averageServiceMinutes} min.</TextSemiBold></TextSemiBold>
         }
         <TextSemiBold>Shipping: <TextSemiBold textStyle={{ color: brandPrimary }}>{item.shippingCosts.toFixed(2)}€</TextSemiBold></TextSemiBold>
+       
       </ImageCard>
     )
   }
@@ -120,5 +128,10 @@ const styles = StyleSheet.create({
   emptyList: {
     textAlign: 'center',
     padding: 50
+  },
+  promo:{
+    fontSize: 20,
+    color: 'red',
+    textAlign: 'right',
   }
 })

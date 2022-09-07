@@ -8,6 +8,7 @@ import ImageCard from '../../components/ImageCard'
 import TextRegular from '../../components/TextRegular'
 import TextSemiBold from '../../components/TextSemibold'
 import { brandPrimary, brandPrimaryTap, brandSecondary, flashStyle, flashTextStyle } from '../../styles/GlobalStyles'
+import { isTokenValid } from '../../api/AuthEndpoints'
 
 export default function RestaurantDetailScreen ({ navigation, route }) {
   const [restaurant, setRestaurant] = useState({})
@@ -62,13 +63,23 @@ export default function RestaurantDetailScreen ({ navigation, route }) {
   }
 
   const renderProduct = ({ item }) => {
+    let promo =''
+    if(item.promoted===true){
+      promo = 'PROMO!!!!'
+    }
     return (
+      
+
       <ImageCard
         imageUri={item.image ? { uri: process.env.API_BASE_URL + '/' + item.image } : undefined}
         title={item.name}
       >
-        <TextRegular numberOfLines={2}>{item.description}</TextRegular>
+        <TextRegular numberOfLines={2}>{item.description}<TextSemiBold textStyle={styles.promo}>{promo}</TextSemiBold></TextRegular>
         <TextSemiBold textStyle={styles.price}>{item.price.toFixed(2)}€</TextSemiBold>
+        <TextSemiBold>Grasas: <TextRegular>{item.fat}</TextRegular></TextSemiBold>
+        <TextSemiBold>Proteinas: <TextRegular>{item.proteins}</TextRegular></TextSemiBold>
+        <TextSemiBold>Carbohidratos: <TextRegular>{item.carbo}</TextRegular></TextSemiBold>
+        <TextSemiBold>Calorías: <TextRegular>{item.calories}</TextRegular></TextSemiBold>
       </ImageCard>
     )
   }
@@ -146,5 +157,11 @@ const styles = StyleSheet.create({
     color: brandSecondary,
     textAlign: 'center',
     marginLeft: 5
+  },
+  promo : {
+    fontSize:20,
+    color:'red',
+    textAlign:'right',
+    marginLeft:500
   }
 })

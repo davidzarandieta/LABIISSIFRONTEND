@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Image, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native'
+import { Image, Platform, Pressable, ScrollView, StyleSheet, View, Switch } from 'react-native'
 import * as ExpoImagePicker from 'expo-image-picker'
 import * as yup from 'yup'
 import DropDownPicker from 'react-native-dropdown-picker'
@@ -158,6 +158,17 @@ export default function CreateRestaurantScreen ({ navigation }) {
               <InputItem
                 name='phone'
                 label='Phone:'
+              />
+              <TextRegular>Is it promotional?</TextRegular>
+              <Switch
+                trackColor={{ false: brandSecondary, true: brandPrimary }}
+                thumbColor={values.promocional ? brandSecondary : '#f4f3f4'}
+                // onValueChange={toggleSwitch}
+                value={values.promocional}
+                style={styles.switch}
+                onValueChange={value =>
+                  setFieldValue('promocional', value)
+                }
               />
 
               <DropDownPicker

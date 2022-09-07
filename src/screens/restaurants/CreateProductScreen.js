@@ -111,6 +111,18 @@ export default function CreateProductScreen ({ navigation, route }) {
                 name='order'
                 label='Order/position to be rendered:'
               />
+              <InputItem
+                name='carbo'
+                label='Carbohidratos/100g:'
+              />
+              <InputItem
+                name='fat'
+                label='Grasas/100g:'
+              />
+              <InputItem
+                name='proteins'
+                label='Proteinas/100g:'
+              />
 
               <DropDownPicker
                 open={open}
@@ -136,6 +148,17 @@ export default function CreateProductScreen ({ navigation, route }) {
                 style={styles.switch}
                 onValueChange={value =>
                   setFieldValue('availability', value)
+                }
+              />
+              <TextRegular>You wanna do it promocional?</TextRegular>
+              <Switch
+                trackColor={{ false: brandSecondary, true: brandPrimary }}
+                thumbColor={values.promoted ? brandSecondary : '#f4f3f4'}
+                // onValueChange={toggleSwitch}
+                value={values.promoted}
+                style={styles.switch}
+                onValueChange={value =>
+                  setFieldValue('promoted', value)
                 }
               />
 
